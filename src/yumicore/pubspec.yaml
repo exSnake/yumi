@@ -1,0 +1,43 @@
+name: yumicore
+description: A Conversational Agent for Smart development
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for the application.
+version: 1.0.0+1
+environment:
+  sdk: '>=2.18.2 <3.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+dependencies:
+  flutter:
+    sdk: flutter
+  # Service locator
+  get_it: ^7.2.0
+  # Bloc for state management
+  flutter_bloc: ^8.0.1
+  # Value Equality
+  equatable: ^2.0.5
+  # Functional programming thingies
+  dartz: ^0.10.1
+  # Remote API
+  internet_connection_checker: ^1.0.0+1
+  http: ^0.13.5
+  # Local cache
+  shared_preferences: ^2.0.15
+  # The following adds the Cupertino Icons font to your application.
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. 
+  flutter_lints: ^2.0.0
+# The following section is specific to Flutter packages.
+flutter:
+  # The following line ensures that the Material Icons font is included
+  uses-material-design: true
