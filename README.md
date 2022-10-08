@@ -1,4 +1,8 @@
 # Yumi
+<p align="center">
+<img src="logo.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" width="200" />
+</p>
+
 Yumi is a conversational agent to work with DART language.
 He's been maded as Flutter application in a Client-Server manner where the server respond to API request and the client elaborate and show response.
 
