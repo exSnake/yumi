@@ -30,7 +30,7 @@ We will use BLoC as state management to follow the Clean Architecture Principle
 ### Schema of Architecture and Data Flow
 
 <p align="center">
-<img src="images/architecture.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" />
+<img src="images/architecture_new.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" />
 </p>
 
 ## Todo
