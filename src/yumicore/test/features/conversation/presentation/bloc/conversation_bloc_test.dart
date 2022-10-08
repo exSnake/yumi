@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dartz/dartz.dart';
 import 'package:yumicore/core/error/failures.dart';
+import 'package:yumicore/core/usecases/usecase.dart';
 import 'package:yumicore/core/util/input_converter.dart';
 import 'package:yumicore/features/conversation/domain/entities/conversation.dart';
 import 'package:yumicore/features/conversation/domain/usecases/get_concrete_conversation.dart';
@@ -20,24 +21,25 @@ class MockInputConverter extends Mock implements InputConverter {}
 void main() {
   late ConversationBloc bloc;
   late MockGetConcreteConversation mockGetConcreteConversation;
-  late MockGetRandomConverastion mockGetRandomConverastion;
+  late MockGetRandomConverastion mockGetRandomConversation;
   late MockInputConverter mockInputConverter;
   late MockConversationRepository mockConversationRepository;
 
   setUp(() async {
     mockGetConcreteConversation = MockGetConcreteConversation();
-    mockGetRandomConverastion = MockGetRandomConverastion();
+    mockGetRandomConversation = MockGetRandomConverastion();
     mockInputConverter = MockInputConverter();
     mockConversationRepository = MockConversationRepository();
 
     bloc = ConversationBloc(
         getConcreteConversation: mockGetConcreteConversation,
-        getRandomConversation: mockGetRandomConverastion,
+        getRandomConversation: mockGetRandomConversation,
         inputConverter: mockInputConverter);
   });
 
   setUpAll(() {
-    registerFallbackValue(const Params(1));
+    registerFallbackValue(const Params(number: 1));
+    registerFallbackValue(NoParams());
   });
 
   test('initial state should be Empty', () {
@@ -68,7 +70,7 @@ void main() {
             (_) async => mockConversationRepository
                 .getConcreteConversation(tNumberParsed));
         // act
-        bloc.add(const GetConversationForConcreteStringEvent(tString));
+        bloc.add(GetConversationForConcreteStringEvent(tString));
         await untilCalled(
             () => mockInputConverter.stringToUnsignedInteger(any()));
         // assert
@@ -83,7 +85,7 @@ void main() {
         when(() => mockInputConverter.stringToUnsignedInteger(any()))
             .thenReturn(Left(InvalidInputFailure()));
         // act
-        bloc.add(const GetConversationForConcreteStringEvent(tString));
+        bloc.add(GetConversationForConcreteStringEvent(tString));
         // assert later
         final expected = [Error(message: INVALID_INPUT_FAILURE_MESSAGE)];
         expectLater(bloc.stream, emitsInOrder(expected));
@@ -98,10 +100,11 @@ void main() {
         when(() => mockGetConcreteConversation(any()))
             .thenAnswer((_) async => const Right(tConversation));
         // act
-        bloc.add(const GetConversationForConcreteStringEvent(tString));
+        bloc.add(GetConversationForConcreteStringEvent(tString));
         await untilCalled(() => mockGetConcreteConversation(any()));
         // assert
-        verify(() => mockGetConcreteConversation(const Params(tNumberParsed)));
+        verify(() =>
+            mockGetConcreteConversation(const Params(number: tNumberParsed)));
       },
     );
 
@@ -113,7 +116,7 @@ void main() {
         when(() => mockGetConcreteConversation(any()))
             .thenAnswer((_) async => const Right(tConversation));
         // act
-        bloc.add(const GetConversationForConcreteStringEvent(tString));
+        bloc.add(GetConversationForConcreteStringEvent(tString));
         // assert later
         final expected = [
           Loading(),
@@ -131,7 +134,7 @@ void main() {
         when(() => mockGetConcreteConversation(any()))
             .thenAnswer((_) async => Left(ServerFailure()));
         // act
-        bloc.add(const GetConversationForConcreteStringEvent(tString));
+        bloc.add(GetConversationForConcreteStringEvent(tString));
         // assert later
         final expected = [
           Loading(),
@@ -149,7 +152,76 @@ void main() {
         when(() => mockGetConcreteConversation(any()))
             .thenAnswer((_) async => Left(CacheFailure()));
         // act
-        bloc.add(const GetConversationForConcreteStringEvent(tString));
+        bloc.add(GetConversationForConcreteStringEvent(tString));
+        // assert later
+        final expected = [
+          Loading(),
+          Error(message: CACHE_FAILURE_MESSAGE),
+        ];
+        expectLater(bloc.stream, emitsInOrder(expected));
+      },
+    );
+  });
+
+  group('GetConversationForRandomString', () {
+    const tConversation = Conversation(number: 1, text: 'Test Text');
+
+    test(
+      'should get data from random use case',
+      () async {
+        // arrange
+        when(() => mockGetRandomConversation(any()))
+            .thenAnswer((_) async => const Right(tConversation));
+        // act
+        bloc.add(GetConversationForRandomStringEvent());
+        await untilCalled(() => mockGetRandomConversation(any()));
+        // assert
+        verify(() => mockGetRandomConversation(NoParams()));
+      },
+    );
+
+    test(
+      'should emit [Loading, Loaded] when data is gotten successfully',
+      () {
+        // arrange
+        when(() => mockGetRandomConversation(any()))
+            .thenAnswer((_) async => const Right(tConversation));
+        // act
+        bloc.add(GetConversationForRandomStringEvent());
+        // assert later
+        final expected = [
+          Loading(),
+          Loaded(conversation: tConversation),
+        ];
+        expectLater(bloc.stream, emitsInOrder(expected));
+      },
+    );
+
+    test(
+      'should emit [Loading, Error] when getting data dailss',
+      () {
+        // arrange
+        when(() => mockGetRandomConversation(any()))
+            .thenAnswer((_) async => Left(ServerFailure()));
+        // act
+        bloc.add(GetConversationForRandomStringEvent());
+        // assert later
+        final expected = [
+          Loading(),
+          Error(message: SERVER_FAILURE_MESSAGE),
+        ];
+        expectLater(bloc.stream, emitsInOrder(expected));
+      },
+    );
+
+    test(
+      'should emit [Loading, Error] with a proper message for the error when getting data fails',
+      () {
+        // arrange
+        when(() => mockGetRandomConversation(any()))
+            .thenAnswer((_) async => Left(CacheFailure()));
+        // act
+        bloc.add(GetConversationForRandomStringEvent());
         // assert later
         final expected = [
           Loading(),

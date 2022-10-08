@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:yumicore/core/error/failures.dart';
 
+import '../../../../core/usecases/usecase.dart';
 import '../../../../core/util/input_converter.dart';
 import '../../domain/entities/conversation.dart';
 import '../../domain/usecases/get_concrete_conversation.dart';
@@ -24,10 +26,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       required this.inputConverter})
       : super(Empty()) {
     on<GetConversationForConcreteStringEvent>(
-        (event, emit) => _getConversationEvent(event, emit));
+        (event, emit) => _onConcreteStringEvent(event, emit));
+    on<GetConversationForRandomStringEvent>(
+        (event, emit) => _onRandomStringEvent(event, emit));
   }
 
-  _getConversationEvent(GetConversationForConcreteStringEvent event,
+  _onConcreteStringEvent(GetConversationForConcreteStringEvent event,
       Emitter<ConversationState> emit) {
     final inputEither =
         inputConverter.stringToUnsignedInteger(event.conversationString);
@@ -42,7 +46,13 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   _workOnInteger(int integer, Emitter<ConversationState> emit) async {
     emit(Loading());
     final failureOrConversation =
-        await getConcreteConversation(Params(integer));
+        await getConcreteConversation(Params(number: integer));
+    _eitherLoadedOrErrorState(failureOrConversation, emit);
+  }
+
+  void _eitherLoadedOrErrorState(
+      Either<Failure, Conversation> failureOrConversation,
+      Emitter<ConversationState> emit) {
     failureOrConversation.fold(
         (failure) => emit(Error(message: _mapFailureToMessage(failure))),
         (conversation) => emit(Loaded(conversation: conversation)));
@@ -57,5 +67,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       default:
         return 'Unexpected error';
     }
+  }
+
+  _onRandomStringEvent(GetConversationForRandomStringEvent event,
+      Emitter<ConversationState> emit) async {
+    emit(Loading());
+    final failureOrConversation = await getRandomConversation(NoParams());
+    _eitherLoadedOrErrorState(failureOrConversation, emit);
   }
 }

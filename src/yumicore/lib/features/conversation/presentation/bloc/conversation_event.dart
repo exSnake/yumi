@@ -1,8 +1,6 @@
 part of 'conversation_bloc.dart';
 
 abstract class ConversationEvent extends Equatable {
-  const ConversationEvent(String conversationString);
-
   @override
   List<Object> get props => [];
 }
@@ -10,8 +8,10 @@ abstract class ConversationEvent extends Equatable {
 class GetConversationForConcreteStringEvent extends ConversationEvent {
   final String conversationString;
 
-  const GetConversationForConcreteStringEvent(this.conversationString)
-      : super(conversationString);
+  GetConversationForConcreteStringEvent(this.conversationString);
+
+  @override
+  List<Object> get props => [conversationString];
 }
 
-//class GetConversationForRandomString extends ConversationEvent {}
+class GetConversationForRandomStringEvent extends ConversationEvent {}

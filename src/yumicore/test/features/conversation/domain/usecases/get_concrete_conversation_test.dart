@@ -25,7 +25,7 @@ void main() {
     when(() => mockConversationRepository.getConcreteConversation(any()))
         .thenAnswer((_) async => const Right(tConversation));
     // act
-    final result = await usecase(const Params(tNumber));
+    final result = await usecase(const Params(number: tNumber));
     // assert
     expect(result, const Right(tConversation));
     verify(() => mockConversationRepository.getConcreteConversation(tNumber));
