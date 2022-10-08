@@ -23,7 +23,13 @@ or design before you write your functional code.
 </p>
 
 # Architecture Proposal
-
+We will use BLoC as state management to follow the Clean Architecture Principle
+<p align="center">
+<img src="images/bloc.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" width="400" />
+### Schema of Architecture and Data Flow
+<p align="center">
+<img src="images/architecture.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" width="400" />
+</p>
 ## Todo
 - [ ] Extend GUI
 - [ ] Add extra language to the dataset for language modelling
