@@ -1,6 +1,6 @@
 # Yumi
 <p align="center">
-<img src="logo.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" width="200" />
+<img src="image/logo.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" width="200" />
 </p>
 
 Yumi is a conversational agent to work with DART language.
@@ -17,6 +17,10 @@ it’s one way to think through your requirements
 or design before you write your functional code.
 
 *From [Introduction to Test Driven Development (TDD)](https://agiledata.org/essays/tdd.html)*
+
+<p align="center">
+<img src="image/tdd.png" data-canonical-src="https://user-images.githubusercontent.com/16319829/79087218-ef769280-7d81-11ea-93d6-a81ea2a7474e.png" width="200" />
+</p>
 
 # Architecture Proposal
 
