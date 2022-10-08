@@ -2,12 +2,14 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/platform/network_info.dart';
+import '../../../../core/network/network_info.dart';
 import '../../domain/entities/conversation.dart';
 import '../../domain/repositories/conversation_repository.dart';
 import '../datasources/conversation_local_data_source.dart';
 import '../datasources/conversation_remote_data_source.dart';
 import '../models/conversation_model.dart';
+
+typedef _ConcreteOrRandomChooser = Future<ConversationModel> Function();
 
 class ConversationRepositoryImpl implements ConversationRepository {
   final ConversationRemoteDataSource remoteDataSource;
@@ -35,7 +37,7 @@ class ConversationRepositoryImpl implements ConversationRepository {
   }
 
   Future<Either<Failure, Conversation>> _getTrivia(
-      Future<ConversationModel> Function() getContreteOrRandom) async {
+      _ConcreteOrRandomChooser getContreteOrRandom) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteConversation = await getContreteOrRandom();

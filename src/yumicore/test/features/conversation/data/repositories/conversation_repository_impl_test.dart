@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dartz/dartz.dart';
 import 'package:yumicore/core/error/exceptions.dart';
 import 'package:yumicore/core/error/failures.dart';
@@ -7,7 +5,7 @@ import 'package:yumicore/features/conversation/data/datasources/conversation_loc
 import 'package:yumicore/features/conversation/data/datasources/conversation_remote_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:yumicore/core/platform/network_info.dart';
+import 'package:yumicore/core/network/network_info.dart';
 import 'package:yumicore/features/conversation/data/models/conversation_model.dart';
 import 'package:yumicore/features/conversation/data/repositories/conversation_repository_impl.dart';
 
@@ -55,10 +53,10 @@ void main() {
   }
 
   group('getConcreteConversation', () {
-    final tNumber = 1;
-    final tConversationModel =
+    const tNumber = 1;
+    const tConversationModel =
         ConversationModel(number: tNumber, text: 'Test Text');
-    final ConversationModel tConversation = tConversationModel;
+    const ConversationModel tConversation = tConversationModel;
     test(
       'should check if the device is online',
       () async {
@@ -91,7 +89,7 @@ void main() {
           final result = await repository.getConcreteConversation(tNumber);
           // assert
           verify(() => mockRemoteDataSource.getConcreteConversation(tNumber));
-          expect(result, equals(Right(tConversation)));
+          expect(result, equals(const Right(tConversation)));
         },
       );
 
@@ -146,7 +144,7 @@ void main() {
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(() => mockLocalDataSource.getLastConversation());
-          expect(result, equals(Right(tConversation)));
+          expect(result, equals(const Right(tConversation)));
         },
       );
 
@@ -168,9 +166,9 @@ void main() {
   });
 
   group('getRandomConversation', () {
-    final tConversationModel =
+    const tConversationModel =
         ConversationModel(number: 123, text: 'Test Text');
-    final ConversationModel tConversation = tConversationModel;
+    const ConversationModel tConversation = tConversationModel;
     test(
       'should check if the device is online',
       () async {
@@ -203,7 +201,7 @@ void main() {
           final result = await repository.getRandomConversation();
           // assert
           verify(() => mockRemoteDataSource.getRandomConversation());
-          expect(result, equals(Right(tConversation)));
+          expect(result, equals(const Right(tConversation)));
         },
       );
 
@@ -258,7 +256,7 @@ void main() {
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(() => mockLocalDataSource.getLastConversation());
-          expect(result, equals(Right(tConversation)));
+          expect(result, equals(const Right(tConversation)));
         },
       );
 

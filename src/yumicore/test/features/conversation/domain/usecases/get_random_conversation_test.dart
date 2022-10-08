@@ -3,7 +3,6 @@ import 'package:yumicore/core/usecases/usecase.dart';
 import 'package:yumicore/features/conversation/domain/entities/conversation.dart';
 import 'package:yumicore/features/conversation/domain/repositories/conversation_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yumicore/features/conversation/domain/usecases/get_concrete_conversation.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:yumicore/features/conversation/domain/usecases/get_random_conversation.dart';
 
