@@ -6,10 +6,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../entities/conversation.dart';
 
-class GetContreteConversation implements UseCase<Conversation, Params> {
+class GetConcreteConversation implements UseCase<Conversation, Params> {
   final ConversationRepository repository;
 
-  GetContreteConversation(this.repository);
+  GetConcreteConversation(this.repository);
 
   @override
   Future<Either<Failure, Conversation>> call(Params params) async {

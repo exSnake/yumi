@@ -9,12 +9,12 @@ class MockConversationRepository extends Mock
     implements ConversationRepository {}
 
 void main() {
-  late GetContreteConversation usecase;
+  late GetConcreteConversation usecase;
   late MockConversationRepository mockConversationRepository;
 
   setUp(() {
     mockConversationRepository = MockConversationRepository();
-    usecase = GetContreteConversation(mockConversationRepository);
+    usecase = GetConcreteConversation(mockConversationRepository);
   });
 
   const tNumber = 1;
