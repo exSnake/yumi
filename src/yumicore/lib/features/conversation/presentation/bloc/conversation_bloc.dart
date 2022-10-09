@@ -28,17 +28,24 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         getRandomConversation = random,
         super(Empty()) {
     on<GetConversationForConcreteStringEvent>(
-        (event, emit) => _onConcreteStringEvent(event, emit));
+        (event, emit) async => _onConcreteStringEvent(event, emit));
     on<GetConversationForRandomStringEvent>(
-        (event, emit) => _onRandomStringEvent(event, emit));
+        (event, emit) async => _onRandomStringEvent(event, emit));
   }
 
   _onConcreteStringEvent(GetConversationForConcreteStringEvent event,
-      Emitter<ConversationState> emit) {
+      Emitter<ConversationState> emit) async {
     final inputEither =
         inputConverter.stringToUnsignedInteger(event.conversationString);
-    inputEither.fold((failure) => _emitError(failure, emit),
+    await inputEither.fold((failure) => _emitError(failure, emit),
         (integer) => _workOnInteger(integer, emit));
+  }
+
+  _onRandomStringEvent(GetConversationForRandomStringEvent event,
+      Emitter<ConversationState> emit) async {
+    emit(Loading());
+    final failureOrConversation = await getRandomConversation(NoParams());
+    await _eitherLoadedOrErrorState(failureOrConversation, emit);
   }
 
   _emitError(Failure failure, Emitter<ConversationState> emit) {
@@ -49,12 +56,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     emit(Loading());
     final failureOrConversation =
         await getConcreteConversation(Params(number: integer));
-    _eitherLoadedOrErrorState(failureOrConversation, emit);
+    await _eitherLoadedOrErrorState(failureOrConversation, emit);
   }
 
-  void _eitherLoadedOrErrorState(
+  Future<void> _eitherLoadedOrErrorState(
       Either<Failure, Conversation> failureOrConversation,
-      Emitter<ConversationState> emit) {
+      Emitter<ConversationState> emit) async {
     failureOrConversation.fold(
         (failure) => emit(Error(message: _mapFailureToMessage(failure))),
         (conversation) => emit(Loaded(conversation: conversation)));
@@ -69,12 +76,5 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
       default:
         return 'Unexpected error';
     }
-  }
-
-  _onRandomStringEvent(GetConversationForRandomStringEvent event,
-      Emitter<ConversationState> emit) async {
-    emit(Loading());
-    final failureOrConversation = await getRandomConversation(NoParams());
-    _eitherLoadedOrErrorState(failureOrConversation, emit);
   }
 }
