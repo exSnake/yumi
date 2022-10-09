@@ -15,17 +15,39 @@ class ConversationDisplay extends StatelessWidget {
         height: MediaQuery.of(context).size.height / 2,
         child: Column(
           children: [
-            Text(conversation.number.toString(),
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Expanded(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Text(conversation.text,
-                      style: const TextStyle(fontSize: 20),
-                      textAlign: TextAlign.left),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                child: Text(conversation.comment,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            Container(
+              color: Colors.grey.shade200,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Expanded(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Text(conversation.code,
+                          style: const TextStyle(fontSize: 20),
+                          textAlign: TextAlign.left),
+                    ),
+                  ),
                 ),
               ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Copia Codice"),
+                  ),
+                ),
+              ],
             ),
           ],
         ));

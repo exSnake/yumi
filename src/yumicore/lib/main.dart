@@ -14,10 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Yumi',
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
-            primary: Colors.deepPurple.shade400, secondary: Colors.deepOrange),
+            primary: Colors.deepOrange.shade400, secondary: Colors.deepOrange),
       ),
       home: ConversationPage(),
     );

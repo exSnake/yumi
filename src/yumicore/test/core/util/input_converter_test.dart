@@ -11,34 +11,22 @@ void main() {
 
   group('InputConverter', () {
     test(
-      'should return an integer when the string represent ans unsigned integer',
+      'should return a string when the string',
       () async {
         // arrange
         const str = '123';
         // act
         final result = inputConverter.stringToUnsignedInteger(str);
         // assert
-        expect(result, const Right(123));
+        expect(result, const Right('123'));
       },
     );
 
     test(
-      'should return a failure when string is not an integer',
+      'should return a failure when string is empty',
       () async {
         // arrange
-        const str = 'abc';
-        // act
-        final result = inputConverter.stringToUnsignedInteger(str);
-        // assert
-        expect(result, Left(InvalidInputFailure()));
-      },
-    );
-
-    test(
-      'should return a failure when string is a negative integer',
-      () async {
-        // arrange
-        const str = '-123';
+        const str = '';
         // act
         final result = inputConverter.stringToUnsignedInteger(str);
         // assert

@@ -1,13 +1,13 @@
 import '../../domain/entities/conversation.dart';
 
 class ConversationModel extends Conversation {
-  const ConversationModel({required text, required number})
-      : super(text: text, number: number);
+  const ConversationModel({required comment, required code})
+      : super(comment: comment, code: code);
   factory ConversationModel.fromJson(Map<String, dynamic> json) {
-    return ConversationModel(text: json['text'], number: json['number']);
+    return ConversationModel(comment: json['comment'], code: json['code']);
   }
 
   Map<String, dynamic> toJson() {
-    return {'text': text, 'number': number};
+    return {'comment': comment, 'code': code};
   }
 }

@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class Conversation extends Equatable {
-  final String text;
-  final int number;
+  final String code;
+  final String comment;
 
-  const Conversation({required this.text, required this.number});
+  const Conversation({required this.code, required this.comment});
 
   @override
-  List<Object> get props => [text, number];
+  List<Object> get props => [code, comment];
 }

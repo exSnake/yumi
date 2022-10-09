@@ -13,15 +13,15 @@ class GetConcreteConversation implements UseCase<Conversation, Params> {
 
   @override
   Future<Either<Failure, Conversation>> call(Params params) async {
-    return await repository.getConcreteConversation(params.number);
+    return await repository.getConcreteConversation(params.comment);
   }
 }
 
 class Params extends Equatable {
-  final int number;
+  final String comment;
 
-  const Params({required this.number});
+  const Params({required this.comment});
 
   @override
-  List<Object> get props => [number];
+  List<Object> get props => [comment];
 }

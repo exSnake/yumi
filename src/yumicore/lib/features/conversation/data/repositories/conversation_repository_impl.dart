@@ -23,9 +23,9 @@ class ConversationRepositoryImpl implements ConversationRepository {
 
   @override
   Future<Either<Failure, Conversation>> getConcreteConversation(
-      int number) async {
+      String comment) async {
     return await _getTrivia(() {
-      return remoteDataSource.getConcreteConversation(number);
+      return remoteDataSource.getConcreteConversation(comment);
     });
   }
 

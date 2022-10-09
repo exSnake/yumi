@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../injection_container.dart';
+import '../../domain/entities/conversation.dart';
 import '../bloc/conversation_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -31,8 +32,9 @@ class ConversationPage extends StatelessWidget {
                 builder: (context, state) {
                   if (state is Empty) {
                     return const MessageDisplay(
-                      message: 'Start Searching!!!',
-                    );
+                        message: 'Benvenuto in Yumi',
+                        subtitle:
+                            'Genera il tuo blocco di codice o trovane uno casualmente');
                   } else if (state is Loading) {
                     return const LoadingWidget();
                   } else if (state is Loaded) {
@@ -54,4 +56,13 @@ class ConversationPage extends StatelessWidget {
           ),
         ));
   }
+}
+
+bool findIfNumberIsPrime(number) {
+  for (int i = 2; i < number; i++) {
+    if (number % i == 0) {
+      return false;
+    }
+  }
+  return true;
 }

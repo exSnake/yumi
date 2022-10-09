@@ -7,7 +7,8 @@ import 'package:yumicore/features/conversation/domain/entities/conversation.dart
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
-  const tConversationModel = ConversationModel(number: 1, text: 'Test Text');
+  const tConversationModel =
+      ConversationModel(comment: 'Test Comment', code: 'Test Code');
 
   test(
     'should be a subclass of ConversationModel entity',
@@ -44,8 +45,8 @@ void main() {
         final result = tConversationModel.toJson();
         // assert
         final expectedMap = {
-          "text": "Test Text",
-          "number": 1,
+          "comment": "Test Comment",
+          "code": "Test Code",
         };
         expect(result, expectedMap);
       },

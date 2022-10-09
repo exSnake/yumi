@@ -53,9 +53,9 @@ void main() {
   }
 
   group('getConcreteConversation', () {
-    const tNumber = 1;
+    const tNumber = '1';
     const tConversationModel =
-        ConversationModel(number: tNumber, text: 'Test Text');
+        ConversationModel(comment: tNumber, code: 'Test Text');
     const ConversationModel tConversation = tConversationModel;
     test(
       'should check if the device is online',
@@ -167,7 +167,7 @@ void main() {
 
   group('getRandomConversation', () {
     const tConversationModel =
-        ConversationModel(number: 123, text: 'Test Text');
+        ConversationModel(comment: '123', code: 'Test Text');
     const ConversationModel tConversation = tConversationModel;
     test(
       'should check if the device is online',

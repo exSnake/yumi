@@ -18,7 +18,7 @@ void main() {
     usecase = GetRandomConversation(mockConversationRepository);
   });
 
-  const tConversation = Conversation(number: 1, text: 'test');
+  const tConversation = Conversation(comment: '1', code: 'test');
 
   test('should get conversation from the repository', () async {
     // arrange

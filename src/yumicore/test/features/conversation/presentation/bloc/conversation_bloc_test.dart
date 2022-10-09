@@ -38,7 +38,7 @@ void main() {
   });
 
   setUpAll(() {
-    registerFallbackValue(const Params(number: 1));
+    registerFallbackValue(const Params(comment: '1'));
     registerFallbackValue(NoParams());
   });
 
@@ -48,8 +48,8 @@ void main() {
 
   group('GetConversationForConcreteString', () {
     const tString = '1';
-    const tNumberParsed = 1;
-    const tConversation = Conversation(number: 1, text: 'Test Text');
+    const tNumberParsed = '1';
+    const tConversation = Conversation(comment: '1', code: 'Test Text');
 
     void setUpInputConverterSuccess() =>
         when(() => mockInputConverter.stringToUnsignedInteger(any()))
@@ -104,7 +104,7 @@ void main() {
         await untilCalled(() => mockGetConcreteConversation(any()));
         // assert
         verify(() =>
-            mockGetConcreteConversation(const Params(number: tNumberParsed)));
+            mockGetConcreteConversation(const Params(comment: tNumberParsed)));
       },
     );
 
@@ -164,7 +164,7 @@ void main() {
   });
 
   group('GetConversationForRandomString', () {
-    const tConversation = Conversation(number: 1, text: 'Test Text');
+    const tConversation = Conversation(comment: '1', code: 'Test Text');
 
     test(
       'should get data from random use case',

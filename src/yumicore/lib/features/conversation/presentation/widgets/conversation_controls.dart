@@ -24,7 +24,7 @@ class _ConversationControlState extends State<ConversationControls> {
         controller: controller,
         keyboardType: TextInputType.text,
         decoration: const InputDecoration(
-            border: OutlineInputBorder(), hintText: 'Input a comment'),
+            border: OutlineInputBorder(), hintText: 'Inserisci un commento'),
         onSubmitted: (_) {
           addConcrete();
         },

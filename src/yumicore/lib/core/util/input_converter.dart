@@ -3,13 +3,12 @@ import 'package:dartz/dartz.dart';
 import '../error/failures.dart';
 
 class InputConverter {
-  Either<Failure, int> stringToUnsignedInteger(String str) {
+  Either<Failure, String> stringToUnsignedInteger(String str) {
     try {
-      var result = int.parse(str);
-      if (result < 0) throw const FormatException();
-      return Right(result);
+      if (str.isEmpty) return Left(InvalidInputFailure());
+      return Right(str);
     } on FormatException {
-      return Left(InvalidInputFailure());
+      throw const FormatException();
     }
   }
 }

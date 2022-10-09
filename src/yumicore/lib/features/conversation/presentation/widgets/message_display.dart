@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class MessageDisplay extends StatelessWidget {
   final String message;
+  final String subtitle;
 
   const MessageDisplay({
     Key? key,
     required this.message,
+    this.subtitle = "",
   }) : super(key: key);
 
   @override
@@ -14,9 +16,17 @@ class MessageDisplay extends StatelessWidget {
         height: MediaQuery.of(context).size.height / 3,
         child: Center(
           child: SingleChildScrollView(
-            child: Text(message,
-                style: const TextStyle(fontSize: 25),
-                textAlign: TextAlign.center),
+            child: Column(
+              children: [
+                Text(message,
+                    style: const TextStyle(
+                        fontSize: 25, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
+                Text(subtitle,
+                    style: const TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center)
+              ],
+            ),
           ),
         ));
   }

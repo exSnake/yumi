@@ -38,7 +38,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     final inputEither =
         inputConverter.stringToUnsignedInteger(event.conversationString);
     await inputEither.fold((failure) => _emitError(failure, emit),
-        (integer) => _workOnInteger(integer, emit));
+        (comment) => _workOnInteger(comment, emit));
   }
 
   _onRandomStringEvent(GetConversationForRandomStringEvent event,
@@ -52,10 +52,10 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     emit(Error(message: INVALID_INPUT_FAILURE_MESSAGE));
   }
 
-  _workOnInteger(int integer, Emitter<ConversationState> emit) async {
+  _workOnInteger(String comment, Emitter<ConversationState> emit) async {
     emit(Loading());
     final failureOrConversation =
-        await getConcreteConversation(Params(number: integer));
+        await getConcreteConversation(Params(comment: comment));
     await _eitherLoadedOrErrorState(failureOrConversation, emit);
   }
 

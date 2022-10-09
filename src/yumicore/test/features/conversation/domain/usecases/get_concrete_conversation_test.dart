@@ -17,15 +17,15 @@ void main() {
     usecase = GetConcreteConversation(mockConversationRepository);
   });
 
-  const tNumber = 1;
-  const tConversation = Conversation(number: 1, text: 'test');
+  const tNumber = '1';
+  const tConversation = Conversation(comment: '1', code: 'test');
 
   test('should get conversation for the input from the repository', () async {
     // arrange
     when(() => mockConversationRepository.getConcreteConversation(any()))
         .thenAnswer((_) async => const Right(tConversation));
     // act
-    final result = await usecase(const Params(number: tNumber));
+    final result = await usecase(const Params(comment: tNumber));
     // assert
     expect(result, const Right(tConversation));
     verify(() => mockConversationRepository.getConcreteConversation(tNumber));
