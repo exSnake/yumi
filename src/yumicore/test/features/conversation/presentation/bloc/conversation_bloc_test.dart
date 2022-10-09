@@ -32,8 +32,8 @@ void main() {
     mockConversationRepository = MockConversationRepository();
 
     bloc = ConversationBloc(
-        getConcreteConversation: mockGetConcreteConversation,
-        getRandomConversation: mockGetRandomConversation,
+        concrete: mockGetConcreteConversation,
+        random: mockGetRandomConversation,
         inputConverter: mockInputConverter);
   });
 
