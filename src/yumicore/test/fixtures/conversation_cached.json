@@ -1,4 +1,4 @@
 {
-    "text": "Test Text",
-    "number": 1
+    "comment": "Test Comment",
+    "code": "Test Code"
 }
