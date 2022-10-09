@@ -9,7 +9,7 @@ abstract class ConversationRemoteDataSource {
   /// Calls the api endpoint.
   ///
   /// Throws a [ServerException] for all error codes
-  Future<ConversationModel> getConcreteConversation(int number);
+  Future<ConversationModel> getConcreteConversation(String comment);
 
   /// Calls the api endpoint to get a random Conversation
   ///
@@ -19,7 +19,7 @@ abstract class ConversationRemoteDataSource {
 
 class ConversationRemoteDataSourceImpl implements ConversationRemoteDataSource {
   final http.Client client;
-  final url = 'http://numbersapi/';
+  final url = 'http://localhost:5001/';
   final headers = {'Content-Type': 'application/json'};
 
   ConversationRemoteDataSourceImpl({required this.client});
@@ -34,10 +34,10 @@ class ConversationRemoteDataSourceImpl implements ConversationRemoteDataSource {
   }
 
   @override
-  Future<ConversationModel> getConcreteConversation(int number) =>
-      _getConversationFromUrl('http://numbersapi.com/$number');
+  Future<ConversationModel> getConcreteConversation(String comment) =>
+      _getConversationFromUrl('http://localhost:5001/query=?$comment');
 
   @override
   Future<ConversationModel> getRandomConversation() =>
-      _getConversationFromUrl('http://numbersapi.com/random');
+      _getConversationFromUrl('http://localhost:5001/random');
 }

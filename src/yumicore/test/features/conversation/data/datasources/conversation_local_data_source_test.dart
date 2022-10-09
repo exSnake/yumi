@@ -52,7 +52,8 @@ void main() {
   });
 
   group('cacheConversation', () {
-    const tConversationModel = ConversationModel(number: 1, text: 'Test Text');
+    const tConversationModel =
+        ConversationModel(comment: '1', code: 'Test Text');
     test(
       'should call SharedPreferences to cache the data',
       () async {

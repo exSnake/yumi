@@ -32,7 +32,7 @@ void main() {
   }
 
   group('getConcreteConversation', () {
-    const tNumber = 1;
+    const tComment = '1';
     final tConversationModel =
         ConversationModel.fromJson(json.decode(fixture('conversation.json')));
     registerFallbackValue(Uri.parse(''));
@@ -44,10 +44,10 @@ void main() {
         // arrange
         setUpMockHttpClientSuccess200();
         // act
-        dataSource.getConcreteConversation(tNumber);
+        dataSource.getConcreteConversation(tComment);
         // assert
         verify(() => mockHttpClient.get(
-            Uri.parse('http://numbersapi.com/$tNumber'),
+            Uri.parse('http://localhost:5001/query=$tComment'),
             headers: {'Content-Type': 'application/json'}));
       },
     );
@@ -58,7 +58,7 @@ void main() {
         // arrange
         setUpMockHttpClientSuccess200();
         // act
-        final result = await dataSource.getConcreteConversation(tNumber);
+        final result = await dataSource.getConcreteConversation(tComment);
         // assert
         expect(result, equals(tConversationModel));
       },
@@ -72,7 +72,7 @@ void main() {
         // act
         final call = dataSource.getConcreteConversation;
         // assert
-        expect(() => call(tNumber), throwsA(isA<ServerException>()));
+        expect(() => call(tComment), throwsA(isA<ServerException>()));
       },
     );
   });
@@ -92,7 +92,7 @@ void main() {
         dataSource.getRandomConversation();
         // assert
         verify(() => mockHttpClient.get(
-            Uri.parse('http://numbersapi.com/random'),
+            Uri.parse('http://localhost:5001/random'),
             headers: {'Content-Type': 'application/json'}));
       },
     );
