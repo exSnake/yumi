@@ -21,10 +21,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   final GetRandomConversation getRandomConversation;
   final InputConverter inputConverter;
   ConversationBloc(
-      {required this.getConcreteConversation,
-      required this.getRandomConversation,
+      {required GetConcreteConversation concrete,
+      required GetRandomConversation random,
       required this.inputConverter})
-      : super(Empty()) {
+      : getConcreteConversation = concrete,
+        getRandomConversation = random,
+        super(Empty()) {
     on<GetConversationForConcreteStringEvent>(
         (event, emit) => _onConcreteStringEvent(event, emit));
     on<GetConversationForRandomStringEvent>(
